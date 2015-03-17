@@ -1,0 +1,11 @@
+# vim: filetype=python
+
+Import('env')
+
+cpp_files = ['gamer.cpp',
+             'gamer_main.cpp'
+            ]
+
+env.Program(target = 'gamer', 
+            source = cpp_files, 
+           )

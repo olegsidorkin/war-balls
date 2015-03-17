@@ -1,0 +1,17 @@
+# vim: filetype=python
+
+Import('env')
+
+cpp_files = ['client_handler.cpp',
+             'error_value.cpp',
+             'handlers.cpp',
+             'http.cpp',
+             'socket.cpp',
+             'viewer_client.cpp',
+             'webserver.cpp',
+             'main.cpp'
+            ]
+
+env.Program(target = 'viewer-webserver',
+            source = cpp_files,
+           )

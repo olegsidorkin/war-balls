@@ -1,0 +1,25 @@
+# vim: filetype=python
+
+import os
+
+project_root = os.path.abspath('../../../')
+
+Import('env')
+
+json_cpp_cpp_path = os.path.join(project_root, 'contrib/jsoncpp/src/lib_json')
+json_cpp_cpp_files = ['json_value.cpp',
+                      'json_reader.cpp',
+                      'json_writer.cpp'
+                     ]
+json_cpp_cpp_files = [os.path.join(json_cpp_cpp_path, x) for x in json_cpp_cpp_files]
+
+cpp_files = ['string_conversion.cpp',
+             'protocol.cpp'
+            ]
+cpp_files += json_cpp_cpp_files
+
+protocol_lib = env.StaticLibrary(target = 'protocol',
+                                 source = cpp_files
+                                )
+
+Return('protocol_lib')

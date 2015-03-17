@@ -1,0 +1,13 @@
+# vim: filetype=python
+
+Import('env')
+
+cpp_files = ['game_server.cpp',
+             'message_manager.cpp',
+             'observers_manager.cpp',
+             'game_state_manager.cpp'
+            ]
+
+server_bin = env.Program(target = 'game_server',
+                         source = cpp_files, 
+                        )

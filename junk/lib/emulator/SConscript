@@ -1,0 +1,11 @@
+# vim: filetype=python
+
+Import('env')
+
+cpp_files = ['helpers.cpp',
+             'default_emulator.cpp'
+            ]
+
+emulator_lib = env.StaticLibrary(target = 'emulator',
+                                 source = cpp_files
+                                )

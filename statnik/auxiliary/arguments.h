@@ -31,6 +31,19 @@ class Arguments {
     std::list<Argument> arguments;
     std::list<std::string> argument_names;
 
+    bool check() {
+        for (Argument& argument : arguments) {
+            if (!argument.used) {
+                if (argument.name == "help" || argument.name == "h" || argument.name == "?") {
+                    return false;
+                } else {
+                    std::cerr << "Argument " << argument.name << " does not exists" << std::endl;
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
     void show_help_message() {
         std::cout << "Correct argument names are";
         for (std::string& argument_name : argument_names) {
@@ -75,18 +88,7 @@ public:
         return default_value;
     }
     void that_is_all() {
-        bool need_help_message = false;
-        for (Argument& argument : arguments) {
-            if (!argument.used) {
-                if (argument.name == "help" || argument.name == "h" || argument.name == "?") {
-                    need_help_message = true;
-                } else {
-                    std::cerr << "Argument " << argument.name << " does not exists" << std::endl;
-                    need_help_message = true;
-                }
-            }
-        }
-        if (need_help_message) {
+        if (!check()) {
             show_help_message();
         }
     }

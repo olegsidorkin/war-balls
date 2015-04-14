@@ -34,12 +34,10 @@ class Arguments {
     bool check() {
         for (Argument& argument : arguments) {
             if (!argument.used) {
-                if (argument.name == "help" || argument.name == "h" || argument.name == "?") {
-                    return false;
-                } else {
+                if (argument.name != "help" && argument.name == "h" && argument.name == "?") {
                     std::cerr << "Argument " << argument.name << " does not exists" << std::endl;
-                    return false;
                 }
+                return false;
             }
         }
         return true;

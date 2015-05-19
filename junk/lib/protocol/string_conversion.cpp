@@ -54,16 +54,18 @@ private:
 
 } // namespace
 
+namespace ab {
 template <>
-std::string ab::ToString<ab::MessageType>(const ab::MessageType name)
+std::string ToString<ab::MessageType>(const ab::MessageType name)
 {
     static const Helper& helper = Helper::GetInstance();
     return helper.ToString(name);
 }
 
 template <>
-bool ab::TryFromString<ab::MessageType>(const std::string& str, ab::MessageType& name)
+bool TryFromString<ab::MessageType>(const std::string& str, ab::MessageType& name)
 {
     static const Helper& helper = Helper::GetInstance();
     return helper.TryFromString(str, name);
 }
+} // namespace ab

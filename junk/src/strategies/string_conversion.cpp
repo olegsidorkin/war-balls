@@ -87,16 +87,18 @@ const std::vector<std::string>& ab::GetAllStrategyNamesStr()
     return helper.GetAllStr();
 }
 
+namespace ab {
 template <>
-std::string ab::ToString<ab::StrategyName>(const ab::StrategyName name)
+std::string ToString<ab::StrategyName>(const ab::StrategyName name)
 {
     static const Helper& helper = Helper::GetInstance();
     return helper.ToString(name);
 }
 
 template <>
-bool ab::TryFromString<ab::StrategyName>(const std::string& str, ab::StrategyName& name)
+bool TryFromString<ab::StrategyName>(const std::string& str, ab::StrategyName& name)
 {
     static const Helper& helper = Helper::GetInstance();
     return helper.TryFromString(str, name);
 }
+} //namespace

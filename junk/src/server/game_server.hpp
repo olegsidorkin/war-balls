@@ -20,6 +20,7 @@ struct GameConfig {
     double player_radius;
     double field_radius;
     double coin_radius;
+    std::string address;
     int port;
 
     bool Check() {

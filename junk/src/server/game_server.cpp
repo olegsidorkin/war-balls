@@ -1,3 +1,4 @@
+#include <iostream>
 #include <thread>
 
 #include "mio/mio.hpp"
@@ -98,7 +99,7 @@ public:
     GameServer(GameConfig config) :
         observers_manager_(std::make_shared<ObserversManager>()),
         message_manager_(std::make_shared<MessageManager>(observers_manager_)),
-        game_io_server_(message_manager_, mio::ServerConfig(config.port)) {
+        game_io_server_(message_manager_, mio::ServerConfig(config.port, config.address)) {
 
         game_state_manager_ = std::make_shared<GameStateManager>
                 (GameStateManager::Init<ab::DefaultPlayerGenerator,
@@ -133,10 +134,11 @@ GameConfig ParseGameConfigOptions(int argc, char** argv)
                                  "--player-radius <player radius> "\
                                  "--field-radius <field radius> "\
                                  "--coin-radius <coin radius> "\
+                                 "--address <inet address> "\
                                  "--port <port> "\
                                  "\n";
 
-    if (21 != argc || 
+    if (23 != argc || 
             std::string("--min-players-count") != argv[1] || 
             std::string("--max-players-count") != argv[3] || 
             std::string("--max-states-count")  != argv[5] ||
@@ -146,7 +148,8 @@ GameConfig ParseGameConfigOptions(int argc, char** argv)
             std::string("--player-radius")     != argv[13] ||
             std::string("--field-radius")      != argv[15] ||
             std::string("--coin-radius")       != argv[17] ||
-            std::string("--port")              != argv[19]
+            std::string("--address")       != argv[19] ||
+            std::string("--port")              != argv[21]
             ) {
         std::cerr << usage_message << std::endl;
         std::exit(1);
@@ -162,7 +165,8 @@ GameConfig ParseGameConfigOptions(int argc, char** argv)
     config.player_radius = atof(argv[14]);
     config.field_radius = atof(argv[16]);
     config.coin_radius = atof(argv[18]);
-    config.port = atoi(argv[20]);
+    config.address = argv[20];
+    config.port = atoi(argv[22]);
 
     if (!config.Check()) {
         std::cerr << usage_message << std::endl;

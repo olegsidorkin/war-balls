@@ -11,6 +11,8 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
+#include <netdb.h>
+#include <arpa/inet.h>
 
 #include <util/cast.h>
 
@@ -37,7 +39,8 @@ bool ab::ClientIO::Connection(size_t port) const
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
     addr.sin_port = htons(port);
-    addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+    struct hostent *h = gethostbyname("37.143.13.206");
+    int result = inet_aton(inet_ntoa(*((struct in_addr *)h->h_addr)), &addr.sin_addr);
     if (connect(sockfd_, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
         std::cerr << "Connection failed\n";
         return false;
@@ -157,6 +160,7 @@ void ab::Gamer::Run()
 
     std::string json_message;
     while (-1 != network_.RecvAll(json_message, 0)) {
+        std::cout << "Run  " << std::endl;
         std::string json_turn;
         if (Turn(json_message, &json_turn)) {
             int send_result = network_.SendAll(json_turn, 0);
@@ -165,6 +169,7 @@ void ab::Gamer::Run()
                 continue;
             }
         } else if (Finish(json_message)) {
+            std::cout << "Finish  " << std::endl;
             return;
         } else {
             std::cerr << "Bad message received " << json_message << std::endl;
@@ -172,6 +177,7 @@ void ab::Gamer::Run()
 
         json_message.clear();
     }
+    std::cout << "Exit" << std::endl;
 }
 
 bool ab::Gamer::Turn(const std::string& json_state, std::string * const json_turn)

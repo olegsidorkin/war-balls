@@ -18,6 +18,7 @@ enum class StrategyName
     Drunk,
     Buffalo,
     RandomAcceleration,
+    OlsiStrategy
 };
 
 const std::vector<StrategyName>& GetAllStrategyNames();
@@ -45,6 +46,14 @@ public:
     Acceleration GetTurn(const FieldState& state, const PlayerId player_id) override;
 
     virtual ~PredictiveStrategy() {}
+};
+
+class OlsiStrategy : public StrategyInterface
+{
+public:
+    Acceleration GetTurn(const FieldState& state, const PlayerId player_id) override;
+
+    virtual ~OlsiStrategy() {}
 };
 
 class DrunkStrategy : public StrategyInterface

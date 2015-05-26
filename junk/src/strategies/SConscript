@@ -9,7 +9,8 @@ cpp_files = ['string_conversion.cpp',
              'do_nothing_strategy.cpp',
              'drunk_strategy.cpp',
              'buffalo_strategy.cpp',
-             'random_acceleration_strategy.cpp'
+             'random_acceleration_strategy.cpp',
+             'olsi_strategy.cpp'
             ]
 
 strategies_lib = env.StaticLibrary(target = 'strategies',

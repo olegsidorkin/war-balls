@@ -39,7 +39,8 @@ bool ab::ClientIO::Connection(size_t port) const
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
     addr.sin_port = htons(port);
-    struct hostent *h = gethostbyname("37.143.13.206");
+//     struct hostent *h = gethostbyname("37.143.13.206");
+        struct hostent *h = gethostbyname("127.0.0.1");
     int result = inet_aton(inet_ntoa(*((struct in_addr *)h->h_addr)), &addr.sin_addr);
     if (connect(sockfd_, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
         std::cerr << "Connection failed\n";

@@ -21,5 +21,8 @@ std::unique_ptr<ab::StrategyInterface> ab::StrategiesFactory::Create(const ab::S
             return std::unique_ptr<StrategyInterface>{new BuffaloStrategy{}};
         case StrategyName::RandomAcceleration:
             return std::unique_ptr<StrategyInterface>{new RandomAccelerationStrategy{}};
+        case StrategyName::OlsiStrategy:
+            return std::unique_ptr<StrategyInterface>{new OlsiStrategy{}};
+
     }
 }

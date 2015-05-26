@@ -20,9 +20,10 @@ public:
                   ab::StrategyName::Predictive,
                   ab::StrategyName::Drunk,
                   ab::StrategyName::Buffalo,
-                  ab::StrategyName::RandomAcceleration
+                  ab::StrategyName::RandomAcceleration,
+                  ab::StrategyName::OlsiStrategy
                 };
-        enum_to_string_.resize(6);
+        enum_to_string_.resize(7);
         enum_to_string_[static_cast<size_t>(ab::StrategyName::DoNothing)] = "DoNothingStrategy";
         enum_to_string_[static_cast<size_t>(ab::StrategyName::MoveToClosest)]
             = "MoveToClosestStrategy";
@@ -31,6 +32,8 @@ public:
         enum_to_string_[static_cast<size_t>(ab::StrategyName::Buffalo)] = "BuffaloStrategy";
         enum_to_string_[static_cast<size_t>(ab::StrategyName::RandomAcceleration)]
             = "RandomAccelerationStrategy";
+        enum_to_string_[static_cast<size_t>(ab::StrategyName::OlsiStrategy)]
+            = "OlsiStrategy";
 
         assert(enum_to_string_.size() == enum_.size());
     }

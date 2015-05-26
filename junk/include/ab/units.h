@@ -1,14 +1,52 @@
 #pragma once
 
+#include <cmath>
 #include <vector>
 
 #include "util/geometry.h"
 
 namespace ab {
 
-struct Velocity : Point {};
+struct Velocity : Point {
+    Velocity operator + (const Velocity to_add) const {
+        Velocity v;
+        v.x = x + to_add.x;
+        v.y = y + to_add.y;
+        return v;
+    }
 
-struct Acceleration : Point {};
+    Velocity Normalize (const double limit) const {
+        Velocity v;
+        const double abs = Abs();
+        v.x = x * (limit / abs);
+        v.y = y * (limit / abs);
+        return v;
+    }
+
+    Vector operator * (const double time_delta) const {
+        Vector v;
+        v.x = x * time_delta;
+        v.y = y * time_delta;
+        return v;
+    }
+
+    double Abs() const {
+        return sqrt(x * x + y * y);
+    }
+};
+
+struct Acceleration : Point {
+    Velocity operator * (const double time_delta) const {
+        Velocity v;
+        v.x = x * time_delta;
+        v.y = y * time_delta;
+        return v;
+    }
+
+    double Abs() const {
+        return sqrt(x * x + y * y);
+    }
+};
 
 using PlayerId = unsigned int;
 using ViewerId = unsigned int;

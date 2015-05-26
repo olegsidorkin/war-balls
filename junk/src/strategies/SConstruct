@@ -40,7 +40,6 @@ cpp_flags = ['-Wall',
              '-Wextra',
              '-pedantic',
              '-std=c++11',
-             '-stdlib=libc++',
              '-pthread'
             ]
 if debug_mode:
@@ -60,7 +59,7 @@ if use_tsan:
                     )
 if static_analysis:
     cpp_flags.append(['--analyze'])
-compiler = 'clang++'
+compiler = 'g++-4.9'
 
 
 env = Environment(CXX = compiler,

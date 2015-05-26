@@ -194,16 +194,18 @@ public:
                     continue;
 
                 } else if (event.input()) {
+                    std::cout << "input" << std::endl;
                     (*connection)->onInput();
-
                 } else if (event.output()) {
+                    std::cout << "output" << std::endl;
                     (*connection)->onOutput();
-
                 } else if (event.closed()) {
+                    std::cout << "closed" << std::endl;
                     closeConnection(connection);
                     continue;
                 }
                 if ((*connection)->needClose()) {
+                    std::cout << "needClose" << std::endl;
                     closeConnection(connection);
                     continue;
                 }

@@ -354,6 +354,7 @@ std::unique_ptr<ab::Message> ab::ParseJsonMessage(const std::string& json)
     Json::Reader reader;
     const bool parsing_successful = reader.parse(json, root);
     if (!parsing_successful)
+        std::cerr << "failed to parse " << json << std::endl;
         return std::unique_ptr<Message>();
 
     MessageType type;
